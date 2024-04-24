@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import ButtonGroup from './ButtonGroup';
 import Content from './Content';
+import Table from './Table';
 
 function App() {
   const API_URL = `https://jsonplaceholder.typicode.com`
@@ -14,10 +15,10 @@ function App() {
       try {
         setIsLoading(true)
         const response = await fetch(`${API_URL}/${path}`)
-        console.log(`${API_URL}/${path}`)
         if (!response.ok) throw Error("Please Reload the App")
         const data = await response.json()
-        // setData(data)
+        setData(data)
+        // console.log(data)
       } catch (err) {
         // console.log(err)
         setErr(err.message)
@@ -34,9 +35,18 @@ function App() {
       <ButtonGroup
         setPath={setPath}
       />
-      <main>
+      {/* <main>
         {!err && !isLoading &&
           <Content
+            data={data}
+          />
+        }
+        {err && !isLoading && <p id='err'>{err}</p>}
+        {isLoading && <p id='load'>Loading...</p>}
+      </main> */}
+      <main>
+        {!err && !isLoading &&
+          <Table
             data={data}
           />
         }
